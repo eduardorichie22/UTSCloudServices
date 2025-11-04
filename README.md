@@ -15,21 +15,20 @@ Pastikan **Docker Desktop** Anda sedang berjalan, lalu jalankan dua perintah ber
 ### 1. Tarik (Pull) Image
 Perintah ini mengunduh *image* yang sudah jadi dari *registry* GitHub.
 
-```bash
 docker pull ghcr.io/eduardorichie22/utscloudservices:latest
-2. Jalankan (Run) Container
-Perintah ini menjalankan image yang sudah diunduh.
 
-Bash
+2. Jalankan (Run) Container
+Perintah ini menjalankan image yang sudah di download.
 
 docker run -d -p 5000:5000 ghcr.io/eduardorichie22/utscloudservices:latest
+
 3. Buka Aplikasi
 Buka browser Anda dan pergi ke alamat:
 
 http://localhost:5000
 
 📦 [Alternatif] Cara Menjalankan (Metode 2: Manual via .tar)
-<details> <summary>Klik di sini untuk instruksi manual menggunakan file .tar</summary>
+Klik di sini untuk instruksi manual menggunakan file .tar
 
 Metode ini digunakan jika Anda tidak bisa mengakses registry dan memiliki file .tar secara manual.
 
@@ -39,20 +38,14 @@ Unduh file mu-news-app.tar dari halaman Releases repositori ini.
 2. Muat (Load) Image
 Buka terminal Anda di folder tempat Anda mengunduh file .tar, lalu jalankan:
 
-Bash
-
 docker load -i mu-news-app.tar
 Ini akan memuat image bernama mu-news-app:latest ke Docker Desktop Anda.
 
 3. Jalankan (Run) Container
 Perintah ini menjalankan image yang baru saja Anda muat.
 
-Bash
-
 docker run -d -p 5000:5000 mu-news-app:latest
 4. Buka Aplikasi
 Buka browser Anda dan pergi ke alamat:
 
 http://localhost:5000
-
-</details>
