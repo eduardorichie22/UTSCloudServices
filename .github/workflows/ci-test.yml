@@ -44,7 +44,7 @@ jobs:
       uses: docker/build-push-action@v4
       with:
         context: .
-        file: ./Dockerfile
+        file: ./DockerFile
         push: true
         # Ini adalah nama image Anda di 'gudang' GitHub
         tags: ghcr.io/${{ github.repository_owner }}/utscloudservices:latest 
