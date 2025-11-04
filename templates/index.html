@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Berita MU</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+    
+    <style>
+        /* 2. Palet Warna (Merah khas MU, Hitam, Putih) */
+        :root {
+            --mu-red: #DA291C;
+            --mu-black: #121212;
+            --card-dark: #1a1a1a;
+            --text-primary: #FFFFFF;
+            --text-secondary: #b3b3b3;
+        }
+
+        /* 3. Pengaturan Dasar (Dark Mode) */
+        body {
+            font-family: 'Roboto', Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background-color: var(--mu-black);
+            color: var(--text-primary);
+        }
+
+        /* 4. Kontainer Utama */
+        .container {
+            max-width: 800px;
+            margin: 0 auto; /* Tengah */
+        }
+
+        /* 5. Header Utama */
+        .header {
+            text-align: center;
+            margin-bottom: 30px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid var(--mu-red);
+        }
+
+        .header h1 {
+            color: var(--text-primary);
+            margin: 0;
+            font-size: 2.5rem; /* Lebih besar */
+        }
+
+        .header p {
+            color: var(--text-secondary);
+            margin: 5px 0 0 0;
+            font-size: 0.9rem;
+        }
+
+        /* 6. Styling Kartu Berita (Simple & Elegan) */
+        .berita-item {
+            background-color: var(--card-dark);
+            border-radius: 8px; /* Sudut tumpul */
+            padding: 20px;
+            margin-bottom: 20px;
+            border: 1px solid #333; /* Garis batas halus */
+            transition: transform 0.2s ease-in-out;
+        }
+
+        .berita-item:hover {
+            transform: translateY(-5px); /* Efek 'terangkat' saat disentuh */
+        }
+
+        /* 7. Judul Berita */
+        .berita-item h2 {
+            margin: 0 0 10px 0;
+            color: var(--mu-red); /* Warna merah MU */
+            font-size: 1.5rem;
+        }
+
+        /* 8. Ringkasan Berita */
+        .berita-item p {
+            margin: 0 0 15px 0;
+            color: var(--text-secondary);
+            line-height: 1.6; /* Jarak antar baris */
+        }
+
+        /* 9. Tombol "Baca selengkapnya" */
+        .berita-item a {
+            display: inline-block;
+            background-color: var(--mu-red);
+            color: var(--text-primary);
+            padding: 10px 15px;
+            border-radius: 4px;
+            text-decoration: none;
+            font-weight: bold;
+            transition: background-color 0.2s;
+        }
+
+        .berita-item a:hover {
+            background-color: #a01e14; /* Merah lebih gelap saat hover */
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        
+        <div class="header">
+            <h1>Berita Terbaru Manchester United</h1>
+            <p>(Sumber: Manchester Evening News)</p>
+        </div>
+        
+        {% for berita in berita_list %}
+            <div class="berita-item">
+                <h2>{{ berita.title }}</h2>
+                <p>{{ berita.summary }}</p>
+                <a href="{{ berita.link }}" target="_blank">Baca selengkapnya...</a>
+            </div>
+        {% else %}
+            <p style="text-align: center;">Tidak ada berita ditemukan.</p>
+        {% endfor %}
+
+    </div>
+
+</body>
+</html>
