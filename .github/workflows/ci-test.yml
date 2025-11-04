@@ -1,28 +1,51 @@
-name: Python CI Test
+name: Python CI/CD - Build and Push Docker Image
 
 # Memicu workflow ini setiap ada push ke branch 'main'
 on:
   push:
     branches: [ "main" ]
-  pull_request:
-    branches: [ "main" ]
 
 jobs:
-  build:
-    runs-on: ubuntu-latest # Jalankan di server Linux
+  build-and-push:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      packages: write # <-- Ini izin untuk 'push' image ke GitHub Registry
 
     steps:
     # 1. Ambil kode dari repo
-    - uses: actions/checkout@v3
+    - name: Check out repository
+      uses: actions/checkout@v3
 
-    # 2. Setup Python
+    # ==========================================================
+    # BAGIAN CI (Continuous Integration)
+    # ==========================================================
     - name: Set up Python
       uses: actions/setup-python@v4
       with:
         python-version: '3.10'
 
-    # 3. Install dependencies (tes otomatis)
-    - name: Install dependencies
+    - name: (CI) Install dependencies
       run: |
         python -m pip install --upgrade pip
         pip install -r requirements.txt
+    
+    # ==========================================================
+    # BAGIAN CD (Continuous Deployment)
+    # ==========================================================
+    - name: (CD) Log in to GitHub Container Registry
+      uses: docker/login-action@v2
+      with:
+        registry: ghcr.io
+        username: ${{ github.repository_owner }}
+        password: ${{ secrets.GITHUB_TOKEN }} # Ini adalah token rahasia otomatis
+
+    - name: (CD) Build and push Docker image
+      uses: docker/build-push-action@v4
+      with:
+        context: .
+        file: ./Dockerfile
+        push: true
+        # Ini adalah nama image Anda di 'gudang' GitHub
+        tags: ghcr.io/${{ github.repository_owner }}/utscloudservices:latest 
+        # (contoh: ghcr.io/eduardorichie22/utscloudservices:latest)
